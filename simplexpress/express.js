@@ -1,22 +1,35 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const bmicalc = require('./src/bmicalc');
 
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/new-year-res', (req, res) => {
-  res.send(`
-  1. Create a professional video game in 2023.
-  2. Achieve 1,000 followers on Twitter by the end of 2023.
-  3. Join a blockchain development course in 2023 and learn to build dApps.
-  4. Become an expert in AI technologies by the end of 2023.
-  5. Develop an app for mobile devices by 2023.
-  `);
+// Get Methods
+app.get('/', (req, res) => {
+  console.log(__dirname);
+  res.sendFile(__dirname + '/index.html');
+});
+app.get('/bmicalculator', (req, res) => {
+  res.sendFile(__dirname + '/bmicalculator.html');
+});
+
+// Post Methods
+app.post('/', (req, res) => {
+  console.log(req.body);
+  res.send('ok, kid');
 })
+app.post('/bmicalculator', (req, res) => {
+  const weight = parseFloat(req.body.weight) || "";
+  const height = parseFloat(req.body.height) || "";
+  console.log(weight, height);
+
+  const bmi = bmicalc(weight, height);
+  res.send(`Your BMI is: ${bmi}`);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+});
