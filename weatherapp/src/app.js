@@ -25,7 +25,6 @@ app.post('/', (req, res) => {
   const iconBaseURL = "http://openweathermap.org/img/wn/";
 
   console.log(query);
-  console.log(query);
 
   https.get(endpointURL, (response) => {
     console.log(response.statusCode);
