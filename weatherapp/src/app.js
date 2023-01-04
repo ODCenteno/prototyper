@@ -24,6 +24,8 @@ app.post('/', (req, res) => {
   const endpointURL = `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${APIkey}&units=metric`;
   const iconBaseURL = "http://openweathermap.org/img/wn/";
 
+  console.log(query);
+  console.log(query);
 
   https.get(endpointURL, (response) => {
     console.log(response.statusCode);
