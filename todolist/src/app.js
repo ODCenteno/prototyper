@@ -1,22 +1,39 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const { redirect } = require('next/dist/server/api-utils');
 
 const PORT = process.env.PORT;
 
 const app = express();
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'));
+
+const taskList = ['Sunday'];
 
 app.get('/', (req, res) => {
-  const daysOfWeek = ['Sunday', 'Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const today = new Date();
-  const currentDay = today.getDay();
+  const options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  }
+  const currentDay = today.toLocaleDateString('es-MX', options);
 
-  res.render('list', {dayToDisplay: daysOfWeek[currentDay] || 'Error getting the current day'});
+  res.render('list', {
+    dayToDisplay: currentDay || 'Error getting the current day',
+    taskList: taskList
+  });
 });
 
 app.post('/', (req, res) => {
-  console.log('this is fine');
+  console.log(req.body.newTask);
+  const newTask = req.body.newTask;
+  if (newTask === ""){
+    console.log('error: empty string');
+  } else { taskList.push(newTask) };
+  res.redirect('/');
 });
 
 app.listen(PORT, () => {

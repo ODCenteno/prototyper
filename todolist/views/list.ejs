@@ -4,9 +4,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
   <title>Todo List</title>
 </head>
 <body>
-  <h1>Getting the <%=dayToDisplay%></h1>
+  <div class="box" id="heading">
+    <h1>Today is <%=dayToDisplay%></h1>
+  </div>
+  <div class="box">
+    <%for (let item of taskList) {%>
+      <div class="item">
+        <input type="checkbox" name="" id="">
+        <p><%= item %></p>
+        <div class="delete-task__box">
+          <button type="submit">X</button>
+        </div>
+      </div>
+    <%}%>
+    <form action="/" method="post">
+      <input type="text" name="newTask" id="task-input" placeholder="Nueva tarea" autocomplete="off">
+      <button type="submit" name="taskButton">+</button>
+    </form>
+  </div>
 </body>
 </html>
