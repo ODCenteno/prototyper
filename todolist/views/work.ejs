@@ -4,18 +4,18 @@
     <h1>Today is <%=dayToDisplay%></h1>
   </div>
   <div class="box">
-    <%for (let item of taskWork) {%>
+    <%for (let i = 0; i < taskWork.length; i++) {%>
       <div class="item item-box">
         <input type="checkbox" name="" id="">
-        <p class="item-task"><%= item %></p>
+        <p class="item-task"><%= taskWork[i] %></p>
         <div class="delete-task__box">
-          <button type="submit" class="delete-task__btn">x</button>
+          <button type="submit" class="delete-task__btn" name="deleteBtn" value=<%= i %>>x</button>
         </div>
       </div>
     <%}%>
     <form action="/work" method="post">
       <input type="text" name="newTask" id="task-input" placeholder="Nueva tarea" autocomplete="off">
-      <button type="submit" name="pageView" value=<%=pageView %>>+</button>
+      <button class="new-task__btn" type="submit" name="pageView" value=<%=pageView %>>+</button>
     </form>
   </div>
 </body>
