@@ -49,12 +49,12 @@ app.post('/', (req, res) => {
 });
 
 app.post('/work', (req, res) => {
-  const pageBtn = req.body.pageView;
-  console.log(pageBtn);
   const newTask = req.body.newTask;
+  const pageBtn = req.body.pageView;
 
   if (newTask === ""){
     console.log('error: empty string');
+
   } else if (pageBtn === 'list') {
     taskList.push(newTask);
     res.redirect('/');
