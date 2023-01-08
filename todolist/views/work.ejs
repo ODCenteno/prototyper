@@ -4,7 +4,7 @@
     <h1>Today is <%=dayToDisplay%></h1>
   </div>
   <div class="box">
-    <%for (let item of taskList) {%>
+    <%for (let item of taskWork) {%>
       <div class="item item-box">
         <input type="checkbox" name="" id="">
         <p class="item-task"><%= item %></p>
@@ -13,7 +13,7 @@
         </div>
       </div>
     <%}%>
-    <form action="/" method="post">
+    <form action="/work" method="post">
       <input type="text" name="newTask" id="task-input" placeholder="Nueva tarea" autocomplete="off">
       <button type="submit" name="pageView" value=<%=pageView %>>+</button>
     </form>

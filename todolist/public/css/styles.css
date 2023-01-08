@@ -1,3 +1,13 @@
+:root {
+  --primary-purple: #A683E3;
+  --light-purple: #E4E9FD;
+  --white: #fff;
+  --grey-divider: #F1F1F1;
+  --grey-placeholder: grey;
+  --blue-text: #00204a;
+}
+
+
 html {
   background-color: #E4E9FD;
   background-image: -webkit-linear-gradient(65deg, #A683E3 50%, #E4E9FD 50%);
@@ -50,6 +60,9 @@ p {
   font-weight: 200;
   color: #00204a;
 }
+.item-task {
+  width: 253px;
+}
 
 form {
   text-align: center;
@@ -64,8 +77,13 @@ button {
   background-color: #A683E3;
   color: #fff;
   font-size: 30px;
-  padding-bottom: 6px;
   border-width: 0;
+}
+
+.delete-task__btn {
+  background-color: var(--light-purple);
+  border-color: var(--grey-divider);
+  color: #00204a;
 }
 
 input[type="text"] {
