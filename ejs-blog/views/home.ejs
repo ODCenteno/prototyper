@@ -4,4 +4,13 @@
 
 <p><%= startingContent %></p>
 
+<main class="container">
+  <% posts.forEach(post => {%>
+    <article>
+      <h2 name="<%= post.routeParam || '?' %>""><a href="/posts/<%= post.routeParam || '?' %>"><%= post.title %></a></h2>
+      <p><%= post.content.substring(0, 150) %>...<a href="/posts/<%= post.routeParam || '?' %>"> Read more</a></p>
+    </article>
+    <%});%>
+</main>
+
 <%- include('./partials/footer') -%>
