@@ -1,2 +1,2 @@
-use("shopdb")
-db.Products.find()
+use("platzi_store")
+db.productos.find()

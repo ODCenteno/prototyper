@@ -1,6 +1,2 @@
-use("platzi_store")
-db.productos.insertOne({
-  _id: 1,
-  name: "camino",
-  price:
-})
+use("test")
+db.people.find()

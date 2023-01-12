@@ -1,6 +1,6 @@
 use("platzi_store")
 db.productos.insertOne({
-  _id: 1,
-  name: "camino",
-  price:
+  _id: 5,
+  name: "colores",
+  price: 15
 })

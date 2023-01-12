@@ -4,28 +4,30 @@ const mongoose = require('mongoose');
 //
 // Connecting to DB using Mongoose example
 //
+console.log(process.env.MONGO_URL);
+mongoose.connect("mongodb://root:root123@localhost:27017/?retryWrites=true&writeConcern=majority");
 
-mongoose.connect(process.MONGO_URL);
-
-const fruitSchema = new mongoose.Schema({
-  name: String,
-  rating: Number,
-  review: String
+const peopleSchema = new mongoose.Schema({
+  'name': String,
+  'age': Number,
+  'details': String
 });
 
 // const Cat = mongoose.model('Cat', { name: String });
 
 // const kitty = new Cat({ name: 'Zildjian' });
 // kitty.save().then(() => console.log('meow'));
-const Fruit = mongoose.model('Fruit', fruitSchema);
+const Person = mongoose.model('Person', peopleSchema);
 
-const fruit = new Fruit({
-  name: 'platano',
-  rating: 8,
-  review: 'The best colors for fruits'
+const person = new Person({
+  'name': 'Daniel',
+  'age': 36,
+  'details': 'virgo'
 });
 
-fruit.save().then(() => console.log('frutillas magicas'))
+person.save().then(() => console.log('cacheton bombacho'))
+
+mongoose.connection.close();
 
 
 
