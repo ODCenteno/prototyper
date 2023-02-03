@@ -4,37 +4,45 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
   <title>Rest API Course</title>
 </head>
 <body>
-  <style>
-    .btn {
-      -webkit-border-radius: 6;
-      -moz-border-radius: 6;
-      border-radius: 6px;
-      -webkit-box-shadow: 0px 4px 18px #969196;
-      -moz-box-shadow: 0px 4px 18px #969196;
-      box-shadow: 0px 4px 18px #969196;
-      font-family: sans-serif;
-      color: #ffffff;
-      font-size: 20px;
-      background: #009cb8;
-      padding: 10px 20px 10px 20px;
-      text-decoration: none;
-      border: none;
-    }
-
-    .btn:hover {
-      background: #00c2c2;
-      text-decoration: none;
-    }
-  </style>
-
-  <h1 class="title">Gatitos collect</h1>
-
-  <button class="btn" onclick="reload()">New Fox</button>
-
-  <img width="350" class="kitty-image" alt="fotogragrafia de un gatito aleatorio">
+  <main class="main_container">
+    <h1 class="title">Fox collect</h1>
+    <section class="img_section">
+      <button class="btn" onclick="reload()">New Fox</button>
+      <article>
+        <img width="350" class="kitty-image" id="img1" alt="fotogragrafia de un zorro aleatorio">
+        <button class="btn_favorite"><span class="material-icons">
+          bookmark_add
+          </span></button>
+      </article>
+      <article>
+        <img width="350" class="kitty-image" id="img2" alt="fotogragrafia de un zorro aleatorio">
+        <button class="btn_favorite"><span class="material-icons">
+          bookmark_add
+          </span></button>
+      </article>
+    </section>
+    <section class="img_section">
+      <h2>Favourites Michis</h2>
+      <article>
+        <img width="350" class="kitty-image" id="fav1" alt="fotogragrafia de un zorro aleatorio">
+        <button class="btn_favorite"><span class="material-icons">
+          bookmark_add
+          </span></button>
+      </article>
+      <article>
+        <img width="350" class="kitty-image" id="fav2" alt="fotogragrafia de un zorro aleatorio">
+        <button class="btn_favorite"><span class="material-icons">
+          bookmark_add
+          </span></button>
+      </article>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
