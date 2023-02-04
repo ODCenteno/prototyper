@@ -1,0 +1,16 @@
+{
+  "name": "restapil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "go": "app.js"
+  },
+  "keywords": [],
+  "author": "Omar Centeno",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
