@@ -8,6 +8,7 @@
   --primary-text: #212121;
   --secondary-text-grey: #757575;
   --divider-grey: #BDBDBD;
+  --red-delete: #e44f4f;
 
   /* Font Sizes */
   --title: 2rem;
@@ -94,7 +95,14 @@ article {
   background-color: var(--light-primary);
   box-shadow: 2px 2px 15px var(--secondary-text-grey);
 }
-
+.btn_delete {
+  width: 40px;
+  height: 36px;
+  border-radius: 100%;
+  border: none;
+  background-color: var(--red-delete);
+  box-shadow: 2px 2px 15px var(--secondary-text-grey);
+}
 .kitty-image {
   border-radius: 12px;
 }
