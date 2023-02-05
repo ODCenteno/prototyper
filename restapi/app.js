@@ -4,7 +4,8 @@
 
 const imgDOM1 = document.getElementById('img1');
 const imgDOM2 = document.getElementById('img2');
-const spanError = document.getElementById('error')
+const spanError = document.getElementById('error');
+const btnDelete = document.querySelectorAll('.btn_delete');
 
 const imagesDOM = [imgDOM1, imgDOM2];
 let imgSources = [];
@@ -69,7 +70,7 @@ async function reload() {
 async function loadFavourites() {
   const res = await fetch(API_URL_FAV);
   const data = await res.json();
-  console.table(data)
+  console.log(data)
 
   if (res.status !== 200) {
     spanError.innerHTML = "Hubo un error: " + res.status + data.message;
@@ -78,24 +79,37 @@ async function loadFavourites() {
       const containter = document.getElementById('favs')
       containter.innerHTML += `<article>
       <img src='${item.image.url}' width="350" class="kitty-image" id="img1" alt="fotogragrafia de un zorro aleatorio">
-      <button class="btn_delete" onclick="saveFavourite(${item.image.url})"><span class="material-icons">
+      <button class="btn_delete" onclick=deleteFav(${item.image.id})><span class="material-icons">
       delete
       </span></button>
     </article>`
     })
+    loadFavourites()
   }
 }
 
 async function deleteFav(id) {
   const favouriteId = API_URL_DELETE_FAV(id)
-  var requestOptions = {
+  let requestOptions = {
     method: 'DELETE',
-    headers
-};
+    headers: 'Content-Type: application/json'
+  };
 
-await fetch(favouriteId, requestOptions)
+  const res = await fetch(favouriteId, requestOptions)
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    spanError.innerHTML = 'Hubo un error: ' + data.message;
+  } else {
+    console.log('Michi eliminado de favoritos');
+    loadFavourites()
+  }
 }
 
 reload( imgSources );
 loadFavourites()
 
+// btnDelete.addEventListener('click', function(e) {
+//   console.log(e);
+//   // deleteFav(e.id);
+// });
