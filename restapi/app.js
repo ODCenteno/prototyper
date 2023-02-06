@@ -5,13 +5,12 @@
 const imgDOM1 = document.getElementById('img1');
 const imgDOM2 = document.getElementById('img2');
 const spanError = document.getElementById('error');
-const btnDelete = document.querySelectorAll('.btn_delete');
 
 const imagesDOM = [imgDOM1, imgDOM2];
 let imgSources = [];
 const API_URL_RANDOM = "https://api.thecatapi.com/v1/images/search?limit=2&api_key=live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s`";
-const API_URL_FAV = `https://api.thecatapi.com/v1/favourites?api_key=live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s`;
-const API_URL_DELETE_FAV = (id) => {`https://api.thecatapi.com/v1/favourites:/${id}?api_key=live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s`};
+const API_URL_FAV = `https://api.thecatapi.com/v1/favourites`;
+const API_URL_DELETE_FAV = (id) => `https://api.thecatapi.com/v1/favourites/${id}`;
 
 async function saveFavourite(id) {
   console.log(`clicked to save michi with id: ${id}`);
@@ -19,6 +18,7 @@ async function saveFavourite(id) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-api-key': 'live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s',
     },
     body: JSON.stringify({
       image_id: id
@@ -29,6 +29,8 @@ async function saveFavourite(id) {
   console.log(data)
   if (res.status !== 200) {
     spanError.innerHTML = 'Hubo un error: ' + data.message;
+  } else {
+    reload();
   }
 }
 
@@ -68,42 +70,67 @@ async function reload() {
 }
 
 async function loadFavourites() {
-  const res = await fetch(API_URL_FAV);
+  const res = await fetch(API_URL_FAV, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': 'live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s',
+    }
+  });
   const data = await res.json();
-  console.log(data)
+  console.log(`Info de Favoritos:`);
+  console.log(data);
 
   if (res.status !== 200) {
     spanError.innerHTML = "Hubo un error: " + res.status + data.message;
   } else {
     data.forEach(item => {
       const containter = document.getElementById('favs')
-      containter.innerHTML += `<article>
-      <img src='${item.image.url}' width="350" class="kitty-image" id="img1" alt="fotogragrafia de un zorro aleatorio">
-      <button class="btn_delete" onclick=deleteFav(${item.image.id})><span class="material-icons">
-      delete
-      </span></button>
-    </article>`
+      const article = document.createElement('article');
+      const img = document.createElement('img');
+      const btn = document.createElement('button');
+      const btnText = document.createTextNode('Sacar al michi de favoritos');
+
+      img.src = item.image.url;
+      img.width = 150;
+      btn.appendChild(btnText);
+      btn.onclick = () => deleteFav(item.image.id);
+      article.appendChild(img);
+      article.appendChild(btn);
+      containter.appendChild(article);
+    //   containter.innerHTML += `<article>
+    //   <img src='${item.image.url}' width="350" class="kitty-image" id="${item.image.id}" alt="fotogragrafia de un zorro aleatorio">
+    //   <button id="${item.image.id}" class="btn_delete" onclick="deleteFav('${item.image.id}')"><span class="material-icons">
+    //   delete
+    //   </span></button>
+    // </article>`
     })
-    loadFavourites()
   }
 }
 
 async function deleteFav(id) {
-  const favouriteId = API_URL_DELETE_FAV(id)
-  let requestOptions = {
-    method: 'DELETE',
-    headers: 'Content-Type: application/json'
-  };
+  console.log(`ID to delete: ${id}`)
+  try {
+    const res = await fetch(`https://api.thecatapi.com/v1/favourites/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'live_NO3mp7zCj5AXEjbULlOQYt0b4wsE2GR8Jux75bIk1LuM2HBAlpMzOdrQQ3QCQU8s',
+      },
+    });
 
-  const res = await fetch(favouriteId, requestOptions)
-  const data = await res.json();
-
-  if (res.status !== 200) {
-    spanError.innerHTML = 'Hubo un error: ' + data.message;
-  } else {
-    console.log('Michi eliminado de favoritos');
-    loadFavourites()
+    const data = await res.json();
+    console.log(`Respuesta al eliminar: ${data}`)
+    if (res.status !== 200) {
+      console.log(`Hubo un error: ${data.message}`);
+    } else {
+      console.log('Michi eliminado de favoritos');
+      reload()
+    }
+  } catch (error) {
+    console.error(`Error con petición delete: ${error}`);
   }
+
 }
 
 reload( imgSources );
