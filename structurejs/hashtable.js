@@ -5,7 +5,7 @@ class HashTable {
 
   hashMethod(key) {
     let hash = 0;
-    for (let i = 0; i < key.lenght; i++) {
+    for (let i = 0; i < key.length; i++) {
       hash = (hash + key.charCodeAt(i) * i) % this.data.length;
     }
     return hash;
@@ -20,7 +20,23 @@ class HashTable {
     this.data[address].push([key, value]);
     return this.data;
   }
+
+  get(key) {
+    const address = this.hashMethod(key);
+    const currentBucket = this.data[address];
+    if(currentBucket) {
+      for(let i = 0; i < currentBucket.length; i++) {
+        if(currentBucket[i][0] === key) {
+          return currentBucket[i][1];
+        }
+      }
+    }
+    return undefined;
+  }
 }
+
+// TODO: Delete method
+// TODO: Method that returns all values
 
 const myHashTable = new HashTable(50);
 console.log(myHashTable.set('Omar', 1986));
