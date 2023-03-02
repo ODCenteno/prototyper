@@ -33,6 +33,19 @@ class HashTable {
     }
     return undefined;
   }
+
+  delete(key) {
+    const address = this.hashMethod(key);
+    const bucketToDelete = this.data[address];
+    if(bucketToDelete) {
+      for(let i = 0; i < bucketToDelete.length; i++) {
+        if(bucketToDelete[i][0] === key) {
+          let deletedBucket = bucketToDelete.splice(i, 1);;
+          return deletedBucket[0];
+        }
+      }
+    }
+  }
 }
 
 // TODO: Delete method
