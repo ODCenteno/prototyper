@@ -52,10 +52,10 @@ class MySinglyLinkedList {
     return this;
   }
 
+// Método para agregar un nodo en una posición itermedia
   insertNode(value, index) {
     if(this.length === 1 ){
       this.appendNode(value);
-      this.length++;
       return this;
     }
 
@@ -70,6 +70,23 @@ class MySinglyLinkedList {
     currentNode.next = newNode;
     this.length++
     return this;
+  }
+
+// Método para elimiar un nodo
+  deleteNode(value) {
+    currentNode = this.head;
+    previousNode = null;
+
+    while (value !== currentNode.value) {
+      if (value === currentNode.value) {
+        previousNode.next = currentNode.next;
+        currentNode.next = null;
+        return this;
+      }
+
+      previousNode = currentNode;
+      currentNode = this.next;
+    }
   }
 }
 
