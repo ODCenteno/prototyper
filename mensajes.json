@@ -1,0 +1,7 @@
+[{
+	"type": "textarea",
+  "required": "true",
+	"label": "Tu mensaje",
+	"max_length": 80,
+	"placeholder": "Escribe el mensaje que quieres enviar al espacio"
+}]
